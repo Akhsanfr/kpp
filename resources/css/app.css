@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    /* CARD */
+    .card {
+        @apply p-4;
+    }
+    .card-title-down {
+        @apply card p-0 bg-base-200 flex flex-col;
+    }
+    .card-title-down div:nth-child(1) {
+        @apply flex-grow flex items-center justify-center text-primary text-xl font-bold;
+    }
+    .card-title-down div:nth-child(2) {
+        @apply bg-primary text-base-100 font-bold text-center p-2;
+    }
+    .card-title-up {
+        @apply card p-0 bg-base-200 flex flex-col;
+    }
+    .card-title-up h2 {
+        @apply bg-primary text-base-100 font-bold text-center p-2;
+    }
+    .card-title-up div {
+        @apply flex-grow;
+    }
+
+    /* END CARD */
+    /* CALENDER */
+    .cal {
+        @apply gap-2 place-items-stretch;
+    }
+    .cal span {
+        @apply text-center p-2 rounded;
+    }
+    .cal-title {
+        @apply bg-primary text-base-100;
+    }
+    .cal-body {
+        @apply bg-base-300;
+    }
+    .cal-aktif {
+        @apply bg-secondary;
+    }
+    .cal-none {
+        @apply bg-base-100;
+    }
+    .cal-clickable {
+        @apply hover:opacity-80 cursor-pointer;
+    }
+    /* END CALENDER */
+    .btn-secondary-inactive {
+        @apply text-base-content bg-base-300 hover:bg-secondary-focus hover:text-base-100 border-0;
+    }
+}
