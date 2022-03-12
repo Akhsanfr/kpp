@@ -17,3 +17,5 @@ Menggunakan library Tailwindcss 2 dengan plugin DaisyUI dan library AlpineJS 3
 
 
 Edit readme by ngoding-fr
+
+Ubah dari branch ngoding-fr
