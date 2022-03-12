@@ -14,3 +14,6 @@ Menggunakan library Tailwindcss 2 dengan plugin DaisyUI dan library AlpineJS 3
 2. Sesuaikan konfigurasi database pada file `.env` (folder root).
 3. Jalankan command `php artisan migrate`.
 4. Jalankan command `php artisan serve`.
+
+
+Edit readme by ngoding-fr
