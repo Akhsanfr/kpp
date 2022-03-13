@@ -16,7 +16,7 @@ class CreateMingguansTable extends Migration
         Schema::create('mingguans', function (Blueprint $table) {
             $table->id();
             $table->string('tahun');
-            $table->enum('bulan', [1,2,3,4,5,6,7,8,9,10,11,12]);
+            $table->enum('bulan', ['01','02','03','04','05','06','07','08','09','10','11','12']);
             $table->enum('pekan', [1,2,3,4,5]);
             $table->double('sp2dk_target', 25, 5);
             $table->double('sp2dk_jumlah', 25, 5);
