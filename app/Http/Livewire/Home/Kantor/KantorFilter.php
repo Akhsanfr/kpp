@@ -78,17 +78,13 @@ class KantorFilter extends Component
             $tahunan = Tahunan::where('tahun', $this->tahun)->first();
             $harians = Harian::whereRaw('YEAR(tanggal) = ' . $this->tahun)->get();
 
-
             if(is_null($tahunan)){
                 $tahunan = 0;
                 $capaian_netto = false;
                 $capaian_bruto = false;
             } else {
                 $tahunan = $tahunan->target;
-                // dump($harians);
-                // dump($tahunan);
                 $capaian_netto =bcdiv($harians->sum('netto'), $tahunan, 100);
-                // dump($harians->sum('netto'));
                 $capaian_bruto =bcdiv($harians->sum('bruto'), $tahunan, 100);
             }
 
@@ -110,8 +106,10 @@ class KantorFilter extends Component
                 $netto[$this->kalender['bulan'][$i -1]] = $harians_by_month->sum('netto');
                 $spmkp[$this->kalender['bulan'][$i -1]] = $bruto[$this->kalender['bulan'][$i -1]] - $netto[$this->kalender['bulan'][$i -1]];
             }
+            $labels = $this->kalender['bulan'];
+            // dump($labels);
             $this->dispatchBrowserEvent('chart-perbulan',
-                compact('bruto', 'netto', 'spmkp')
+                compact('labels','bruto', 'netto', 'spmkp')
             );
 
         }
@@ -137,17 +135,19 @@ class KantorFilter extends Component
             // ### PERTUMBUHAN //
                 $netto = $harians->sum('netto');
                 $netto_tahun_sebelumnya = $harians_tahun_sebelumnya->sum('netto');
-                if($netto_tahun_sebelumnya === 0){
+                if(!$netto_tahun_sebelumnya){
                     $pertumbuhan_netto = false;
                 } else {
                     $pertumbuhan_netto = bcdiv($netto, $netto_tahun_sebelumnya, 100);
+                    // $pertumbuhan_netto = false;
                 }
                 $bruto = $harians->sum('bruto');
                 $bruto_tahun_sebelumnya = $harians_tahun_sebelumnya->sum('bruto');
-                if($bruto_tahun_sebelumnya === 0){
+                if(!$bruto_tahun_sebelumnya){
                     $pertumbuhan_bruto = false;
                 } else {
                     $pertumbuhan_bruto = bcdiv($bruto, $bruto_tahun_sebelumnya, 100);
+                    // $pertumbuhan_bruto = false;
                 }
                 $this->emit('chartPertumbuhanNetto', $pertumbuhan_netto);
                 $this->emit('chartPertumbuhanBruto', $pertumbuhan_bruto);
@@ -156,13 +156,24 @@ class KantorFilter extends Component
             // ### PERJENIS //
                 $this->dispatchBrowserEvent('chartPerjenis',
                     [
-                        'PPN-Impor' => $harians->sum('ppn_impor'),
-                        'PPNDN' => $harians->sum('pph_ppndn'),
-                        'PPH-25/9' => $harians->sum('pph_25_9'),
-                        'PPH-23' => $harians->sum('pph_23'),
-                        'PPH-22-Impor' => $harians->sum('pph_22_impor'),
-                        'PPH-22' => $harians->sum('pph_22'),
-                        'PPH-21' => $harians->sum('pph_21'),
+                        [
+                            'PPN-Impor',
+                            'PPNDN',
+                            'PPH-25/9',
+                            'PPH-23',
+                            'PPH-22-Impor',
+                            'PPH-22',
+                            'PPH-21',
+                        ],
+                        [
+                            $harians->sum('ppn_impor'),
+                            $harians->sum('pph_ppndn'),
+                            $harians->sum('pph_25_9'),
+                            $harians->sum('pph_23'),
+                            $harians->sum('pph_22_impor'),
+                            $harians->sum('pph_22'),
+                            $harians->sum('pph_21'),
+                        ]
                     ]
                 );
             // END PERJENIS //

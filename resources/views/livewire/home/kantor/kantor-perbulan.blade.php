@@ -1,16 +1,21 @@
 @push('scripts')
 <script>
         window.addEventListener('chart-perbulan', event => {
+            console.log(event.detail.labels);
+            let data = [];
+            let labels = [];
             setChart({   type : 'line',
-                    axis : 'x',
-                    id : 'chart-perbulan',
-                    data_1 : event.detail.bruto,
-                    label_1 : 'BRUTO',
-                    data_2 : event.detail.netto,
-                    label_2 : 'NETTO',
-                    data_3 : event.detail.spmkp,
-                    label_3 : 'SPMKP'
-                })
+                axis : 'x',
+                id : 'chart-perbulan',
+                interaction : true,
+                data : [
+                    event.detail.bruto,
+                    event.detail.netto,
+                    event.detail.spmkp,
+                ],
+                labels : event.detail.labels,
+                legends : ['Bruto', 'Netto', 'SPMKP']
+            });
         });
     </script>
 @endpush

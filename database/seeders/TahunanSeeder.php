@@ -16,11 +16,15 @@ class TahunanSeeder extends Seeder
     {
         Tahunan::create([
             'tahun' => 2020,
-            'target' => 10000000000000.12345
+            'target' => bcmul(rand(100000000, 2000000000), 365)
         ]);
         Tahunan::create([
             'tahun' => 2021,
-            'target' => 1500.12345
+            'target' => bcmul(rand(100000000, 2000000000), 365)
+        ]);
+        Tahunan::create([
+            'tahun' => 2022,
+            'target' => bcmul(rand(100000000, 2000000000), 365)
         ]);
     }
 }

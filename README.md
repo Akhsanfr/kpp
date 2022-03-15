@@ -1,7 +1,7 @@
 # Website KKP 073 Pajak Kemenkeu
 
 Dibuat menggunakan kerangka kerja Laravel 8 dan Livewire 2
-Menggunakan library Tailwindcss 2 dengan plugin DaisyUI dan library AlpineJS 3
+Menggunakan library Tailwindcss 3 dengan plugin DaisyUI 2 dan library AlpineJS 3
 
 # Persyaratan
 
@@ -13,9 +13,5 @@ Menggunakan library Tailwindcss 2 dengan plugin DaisyUI dan library AlpineJS 3
 1. Buat database baru dengan nama bebas, misal `data_pajak`.
 2. Sesuaikan konfigurasi database pada file `.env` (folder root).
 3. Jalankan command `php artisan migrate`.
-4. Jalankan command `php artisan serve`.
-
-
-Edit readme by ngoding-fr
-
-Ubah dari branch ngoding-fr
+4. Jalankan command `php artisan db:seed`
+5. Jalankan command `php artisan serve`.

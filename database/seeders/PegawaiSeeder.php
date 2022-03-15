@@ -34,5 +34,45 @@ class PegawaiSeeder extends Seeder
             'nama' => 'Steven Julian',
             'seksi' => 'Pengawasan IV',
         ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Juan Rich',
+            'seksi' => 'Pengawasan III',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Ricky Flamboyan',
+            'seksi' => 'Pengawasan II',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Ignasius Rifany',
+            'seksi' => 'Pengawasan IV',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Jaka Samudra',
+            'seksi' => 'Pengawasan V',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Barnet Ikoes',
+            'seksi' => 'Pengawasan IV',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Joseph Sink',
+            'seksi' => 'Pengawasan III',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Ahmad Yasin',
+            'seksi' => 'Pengawasan II',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Jons Kiwi',
+            'seksi' => 'Pengawasan IV',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Azka Rizkia',
+            'seksi' => 'Pengawasan V',
+        ]);
+        DB::table('pegawais')->insert([
+            'nama' => 'Nurina',
+            'seksi' => 'Pengawasan IV',
+        ]);
     }
 }
