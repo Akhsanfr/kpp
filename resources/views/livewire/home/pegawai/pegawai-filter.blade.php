@@ -18,7 +18,16 @@
             <span class="label-text">Seksi {{ $daftar_seksi[$s-1] }}</span>
             <input type="checkbox" class="checkbox checkbox-secondary" wire:model="seksis.{{ $s - 1  }}">
         </label>
-        {{-- <label for="label-seksi-{{ $s }}" class="btn btn-sm col-span-10 {{ $seksis[$s - 1] ? 'btn-secondary'  : '' }}">Seksi Pengawasan {{ $s }}</label>
-        <input class="hidden" id="label-seksi-{{ $s }}" type="checkbox" wire:model="seksis.{{ $s - 1  }}"/> --}}
     @endfor
+    <span class="col-span-10">Urutkan data berdasarkan : </span>
+    <select class="select select-sm select-bordered col-span-5" id="filter" onchange="filter(event.target.value)">
+        <option value="nama">Nama</option>
+        @foreach ($koloms as $kolom)
+        <option value="{{ $kolom[0] }}">{{ $kolom[1] }}</option>
+        @endforeach
+    </select>
+    <select class="select select-sm select-bordered col-span-5" id="filter-asc" onchange="filterAsc(event.target.value)">
+        <option value="naik">Naik (A-Z)</option>
+        <option value="turun">Turun (Z-A)</option>
+    </select>
 </div>

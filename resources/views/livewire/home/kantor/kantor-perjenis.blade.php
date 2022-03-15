@@ -1,12 +1,15 @@
 @push('scripts')
     <script>
         window.addEventListener('chartPerjenis', event => {
+            let data = [];
+            let labels = [];
             setChart({   type : 'bar',
-                    axis : 'x',
-                    id : 'chart-perjenis',
-                    data_1 : event.detail,
-                    label_1 : 'Data',
-                });
+                axis : 'x',
+                id : 'chart-perjenis',
+                data : [event.detail[1]],
+                labels : event.detail[0],
+                legends : ['Data']
+            });
         })
     </script>
 @endpush

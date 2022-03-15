@@ -48,6 +48,8 @@ class PegawaiFilter extends Component
         'stp_terbit_rupiah'
     ];
 
+    public $koloms=[];
+
     public $pekans = [true, true, true, true, true], $seksis = [true,true,true,true,true,true], $bulan, $tahun;
 
     protected $queryString = [
@@ -73,7 +75,7 @@ class PegawaiFilter extends Component
         $this->getData();
     }
 
-    public function mount(){
+    public function mount($koloms){
         $this->bulan = $_GET['b'] ?? date('m');
         $this->tahun = $_GET['t'] ?? date('Y');
         if($_GET['p'] ?? false){
@@ -86,6 +88,7 @@ class PegawaiFilter extends Component
                 $this->seksis[$i] = $_GET['s'][$i] == '1' ? true : false;
             }
         }
+        $this->koloms = $koloms;
     }
 
     public function getData(){
@@ -113,15 +116,19 @@ class PegawaiFilter extends Component
             ->get();
         // Grup data sesuai nama pegawai
         $mingguans = $mingguans->groupBy('pegawai.nama')->all();
+        // dd($mingguans);
         // Siapkan data untuk masing2 kolom (chart)
-        foreach($this->columns as $column){
-            // data kolom ...
-            $data[$column] = [];
-            foreach($mingguans as $pegawai => $mingguan){
-                $data[$column][$pegawai] = $mingguan->sum($column);
+        $data = [];
+        foreach($mingguans as $pegawai => $mingguan){
+            // data per pegawai
+            $data[$pegawai] = [];
+            foreach($this->columns as $column){
+                // data per kolom untuk setiap pegawai ...
+                $data[$pegawai][$column] = $mingguan->sum($column);
             }
+            $data[$pegawai]['nama'] = $pegawai;
         }
-        $this->dispatchBrowserEvent('chart-pegawai', $data);
+        $this->dispatchBrowserEvent('chartPegawai', $data);
     }
 
     public function render()

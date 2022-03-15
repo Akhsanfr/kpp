@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             DataSekarangSeeder::class,
             TahunanSeeder::class,
             LifetimeSeeder::class,
+            HarianSeeder::class,
             MingguanSeeder::class
         ]);
     }
