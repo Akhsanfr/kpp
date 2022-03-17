@@ -8,7 +8,8 @@
                 id : 'chart-perjenis',
                 data : [event.detail[1]],
                 labels : event.detail[0],
-                legends : ['Data']
+                legends : ['Data'],
+                height : 450
             });
         })
     </script>

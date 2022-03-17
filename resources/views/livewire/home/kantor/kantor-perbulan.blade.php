@@ -14,7 +14,8 @@
                     event.detail.spmkp,
                 ],
                 labels : event.detail.labels,
-                legends : ['Bruto', 'Netto', 'SPMKP']
+                legends : ['Bruto', 'Netto', 'SPMKP'],
+                height : 450
             });
         });
     </script>
