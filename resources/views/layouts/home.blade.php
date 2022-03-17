@@ -32,115 +32,9 @@
                     data,
                     labels,
                     legends,
+                    height = 'auto'
                 }
             ){
-
-
-            //
-                // console.log(data_1);
-                // let labels = [];
-                // let data_set = [];
-                // let datasets = [];
-                // Set data pertama...
-                // data_a = [];
-                // for( key in data_1){
-                //     // set label...
-                //     label.push(data_1.label);
-                //     // set data...
-                //     data_a.push(data_1.value)
-                // };
-                // for( key in data_1){
-                //     // set label...
-                //     label.push(key);
-                //     // set data...
-                //     data_a.push(data_1[key])
-                // };
-                // data_set.push({
-                //     label : label_1,
-                //     backgroundColor: 'rgb(33, 44, 95)',
-                //     borderColor: 'rgb(33, 44, 95)',
-                //     barThickness,
-                //     data: data_a,
-                //     tension: 0.2,
-                // });
-
-                // Set data 2 jika ada...
-                // if(data_2){
-                //     data_b = [];
-                //     for( key in data_2){
-                //         // set data...
-                //         data_b.push(data_2[key])
-                //     }
-                //     data_set.push({
-                //         label : label_2,
-                //         backgroundColor: 'rgb(255, 201, 27)',
-                //         borderColor: 'rgb(255, 201, 27)',
-                //         data: data_b,
-                //         tension: 0.2,
-                //         barThickness
-                //     });
-                // }
-                // if(data_3){
-                //     data_c = [];
-                //     for( key in data_3){
-                //         // set data...
-                //         data_c.push(data_3[key])
-                //     }
-                //     data_set.push({
-                //         label : label_3,
-                //         backgroundColor: 'rgb(0, 148, 133)',
-                //         borderColor: 'rgb(0, 148, 133)',
-                //         data: data_c,
-                //         tension: 0.2,
-                //         barThickness
-                //     });
-                // }
-                // new
-                // if(Array.isArray(data)){
-                //     console.log('cek',data);
-                //     console.log(Array.isArray(data));
-                // } else {
-                //     console.log('data' ,data);
-                //     x = [];
-                //     // y = [];
-                //     for( key in data){
-                //         // set data...
-                //         x.push(data[key])
-                //         labels.push(key)
-                //     }
-                //     // console.log(y);
-                //     datasets.push({
-                //         label : 'yoo',
-                //         backgroundColor: colors[0],
-                //         data: x,
-                //         tension: 0.2,
-                //         barThickness
-                //     });
-                // }
-
-                // data_a = [];
-                // for( key in data_1){
-                //     // set label...
-                //     label.push(data_1.label);
-                //     // set data...
-                //     data_a.push(data_1.value)
-                // };
-                // for( key in data_1){
-                //     // set label...
-                //     label.push(key);
-                //     // set data...
-                //     data_a.push(data_1[key])
-                // };
-                // data_set.push({
-                //     label : label_1,
-                //     backgroundColor: 'rgb(33, 44, 95)',
-                //     borderColor: 'rgb(33, 44, 95)',
-                //     barThickness,
-                //     data: data_a,
-                //     tension: 0.2,
-                // });
-                    // console.log('datasets :', datasets);
-                    // console.log('labels :', labels);
             // prepare config...
             // color
             const colors = [
@@ -159,28 +53,6 @@
                     barThickness
                 })
             })
-            //
-                // if(data[0][0]){
-                //     data.forEach((e, index) => {
-                //         datasets.push({
-                //             label : legend[index],
-                //             backgroundColor: colors[index],
-                //             data : data[index],
-                //             tension: 0.2,
-                //             barThickness
-                //         })
-                //     })
-                // } else {
-                //     datasets.push({
-                //         label : legend,
-                //         backgroundColor: colors[0],
-                //         data,
-                //         tension: 0.2,
-                //         barThickness
-                //     })
-                // }
-                // console.log(datasets);
-            // console.log(data[0][0] ? 'yes' : 'no')
 
             const jenis_config = {
                 type,
@@ -193,7 +65,6 @@
                     maintainAspectRatio: false,
                 }
             };
-
             if(interaction){
                 jenis_config.options.interaction = {
                     intersect: false,
@@ -228,8 +99,16 @@
                 return console.error('Invalid id chart');
             }
             jenis_chart.innerHTML = `<canvas></canvas>`;
-            jenis_chart.style.height = labels.length * 30 + 75 +'px';
-
+            if(height === 'auto'){
+                if(axis === 'x'){
+                    jenis_chart.style.height = "300px";
+                } else {
+                    jenis_chart.style.height = labels.length * 30 + 75 +'px';
+                }
+            } else {
+                jenis_chart.style.height = height + 'px';
+            }
+            console.log(jenis_chart.style.height);
             //init chart...
             new Chart(
                 jenis_chart.firstChild,
