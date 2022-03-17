@@ -24,7 +24,6 @@ class CreateHariansTable extends Migration
             $table->double('pph_23', 25, 5);
             $table->double('pph_22', 25, 5);
             $table->double('netto', 25, 5);
-            $table->double('bruto', 25, 5);
             $table->timestamps();
         });
     }

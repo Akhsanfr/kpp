@@ -22,7 +22,7 @@ class HariansImport implements ToModel, WithValidation, WithBatchInserts
         'pph_23',
         'pph_22',
         'netto',
-        'bruto',
+        // 'bruto',
     ];
 
     /**

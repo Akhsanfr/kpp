@@ -52,7 +52,7 @@ class HarianTabel extends Component
         'edit_data.*.pph_23' => 'required',
         'edit_data.*.pph_22' => 'required',
         'edit_data.*.netto' => 'required',
-        'edit_data.*.bruto' => 'required',
+        // 'edit_data.*.bruto' => 'required',
 
     ];
 
@@ -106,7 +106,7 @@ class HarianTabel extends Component
                 ->orWhere('pph_23', 'like', '%' . $this->search . '%')
                 ->orWhere('pph_22', 'like', '%' . $this->search . '%')
                 ->orWhere('netto', 'like', '%' . $this->search . '%')
-                ->orWhere('bruto', 'like', '%' . $this->search . '%')
+                // ->orWhere('bruto', 'like', '%' . $this->search . '%')
                 ->orderBy('tanggal')
                 ->paginate($this->paginate);
         }

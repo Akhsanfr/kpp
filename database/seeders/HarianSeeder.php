@@ -46,7 +46,6 @@ class HarianSeeder extends Seeder
                     $input[$kolom] = $val[$key];
                 }
                 $input['tanggal'] = $tanggal;
-                $input['bruto'] = $bruto;
                 $input['netto'] = $bruto * bcdiv(rand(1,20), 10);
                 Harian::create($input);
             }

@@ -77,6 +77,17 @@ class KantorFilter extends Component
         public function getDataTahunan(){
             $tahunan = Tahunan::where('tahun', $this->tahun)->first();
             $harians = Harian::whereRaw('YEAR(tanggal) = ' . $this->tahun)->get();
+            $sum_bruto = bcadd($harians->sum('ppn_impor'),
+                            bcadd($harians->sum('pph_ppndn'),
+                                bcadd($harians->sum('pph_25_9'),
+                                    bcadd($harians->sum('pph_23'),
+                                        bcadd($harians->sum('pph_22_impor'),
+                                            bcadd($harians->sum('pph_22'), $harians->sum('pph_22'))
+                                        )
+                                    )
+                                )
+                            )
+                        );
 
             if(is_null($tahunan)){
                 $tahunan = 0;
@@ -85,12 +96,12 @@ class KantorFilter extends Component
             } else {
                 $tahunan = $tahunan->target;
                 $capaian_netto =bcdiv($harians->sum('netto'), $tahunan, 100);
-                $capaian_bruto =bcdiv($harians->sum('bruto'), $tahunan, 100);
+                $capaian_bruto =bcdiv($sum_bruto, $tahunan, 100);
             }
 
             $this->emit('chartPenerimaanTarget', $tahunan);
             $this->emit('chartPenerimaanNetto', $harians->sum('netto'));
-            $this->emit('chartPenerimaanSpmkp', $harians->sum('bruto') - $harians->sum('netto'));
+            $this->emit('chartPenerimaanSpmkp', $sum_bruto - $harians->sum('netto'));
 
             $this->emit('chartCapaianNetto', $capaian_netto);
             $this->emit('chartCapaianBruto', $capaian_bruto);
@@ -102,7 +113,18 @@ class KantorFilter extends Component
                 $harians_by_month =  Harian
                     ::whereRaw('MONTH(tanggal) = ' . $i . ' AND YEAR(tanggal) = ' . $this->tahun)
                     ->get();
-                $bruto[$this->kalender['bulan'][$i -1]] = $harians_by_month->sum('bruto');
+                $sum_bruto_by_month = bcadd($harians_by_month->sum('ppn_impor'),
+                            bcadd($harians_by_month->sum('pph_ppndn'),
+                                bcadd($harians_by_month->sum('pph_25_9'),
+                                    bcadd($harians_by_month->sum('pph_23'),
+                                        bcadd($harians_by_month->sum('pph_22_impor'),
+                                            bcadd($harians_by_month->sum('pph_22'), $harians_by_month->sum('pph_22'))
+                                        )
+                                    )
+                                )
+                            )
+                    );
+                $bruto[$this->kalender['bulan'][$i -1]] = $sum_bruto_by_month;
                 $netto[$this->kalender['bulan'][$i -1]] = $harians_by_month->sum('netto');
                 $spmkp[$this->kalender['bulan'][$i -1]] = $bruto[$this->kalender['bulan'][$i -1]] - $netto[$this->kalender['bulan'][$i -1]];
             }
@@ -141,8 +163,29 @@ class KantorFilter extends Component
                     $pertumbuhan_netto = bcdiv($netto, $netto_tahun_sebelumnya, 100);
                     // $pertumbuhan_netto = false;
                 }
-                $bruto = $harians->sum('bruto');
-                $bruto_tahun_sebelumnya = $harians_tahun_sebelumnya->sum('bruto');
+                $bruto = bcadd($harians->sum('ppn_impor'),
+                            bcadd($harians->sum('pph_ppndn'),
+                                bcadd($harians->sum('pph_25_9'),
+                                    bcadd($harians->sum('pph_23'),
+                                        bcadd($harians->sum('pph_22_impor'),
+                                            bcadd($harians->sum('pph_22'), $harians->sum('pph_22'))
+                                        )
+                                    )
+                                )
+                            )
+                        );
+                $bruto_tahun_sebelumnya =   bcadd($harians_tahun_sebelumnya->sum('ppn_impor'),
+                                                bcadd($harians_tahun_sebelumnya->sum('pph_ppndn'),
+                                                    bcadd($harians_tahun_sebelumnya->sum('pph_25_9'),
+                                                        bcadd($harians_tahun_sebelumnya->sum('pph_23'),
+                                                            bcadd($harians_tahun_sebelumnya->sum('pph_22_impor'),
+                                                                bcadd($harians_tahun_sebelumnya->sum('pph_22'), $harians_tahun_sebelumnya->sum('pph_22'))
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            );
+                    // $bruto_tahun_sebelumnya = $harians_tahun_sebelumnya->sum('bruto');
                 if(!$bruto_tahun_sebelumnya){
                     $pertumbuhan_bruto = false;
                 } else {
