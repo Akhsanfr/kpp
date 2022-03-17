@@ -108,8 +108,10 @@
                 <th> PPH 23 </th>
 
                 <th> PPH 22 </th>
+                @if (!$edit_mode)
+                    <th> Bruto </th>
+                @endif
                 <th> Netto </th>
-                <th> Bruto </th>
             </thead>
             <tbody>
                 @if ($edit_mode)
@@ -169,11 +171,11 @@
                                 @enderror"
                                  type="text" wire:model.defer="edit_data.{{ $index }}.netto"></td>
                             <td>
-                                <input class="input input-sm input-ghost
+                                {{-- <input class="input input-sm input-ghost
                                 @error("edit_data.$index.bruto")
                                     input-error
                                 @enderror"
-                                 type="text" wire:model.defer="edit_data.{{ $index }}.bruto"></td>
+                                 type="text" wire:model.defer="edit_data.{{ $index }}.bruto"></td> --}}
 
                         </tr>
                     @endforeach
@@ -195,8 +197,23 @@
                             <td>{{ number_format($harian->pph_23,$decimal,',', '.' ) }}</td>
 
                             <td>{{ number_format($harian->pph_22,$decimal,',', '.' ) }}</td>
+                            @php
+                                $bruto = bcadd($harian->ppn_impor,
+                                            bcadd($harian->pph_25_9,
+                                                bcadd($harian->pph_22_impor,
+                                                    bcadd($harian->pph_21,
+                                                        bcadd($harian->pph_ppndn,
+                                                            bcadd($harian->pph_23,
+                                                                $harian->pph_22
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        );
+                            @endphp
+                            <td>{{ number_format($bruto, $decimal,',', '.') }}</td>
                             <td>{{ number_format($harian->netto, $decimal,',', '.') }}</td>
-                            <td>{{ number_format($harian->bruto, $decimal,',', '.') }}</td>
 
                         </tr>
                     @empty
